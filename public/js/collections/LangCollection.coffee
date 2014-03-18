@@ -14,6 +14,8 @@ define [
     model: LangModel
     
     currentLang: null
+    currentNamespace: null
+    
     
     namespaces: []
     
@@ -33,6 +35,7 @@ define [
     parse: (resp, xhr)->
       this.currentLang = xhr.data.lang
       this.namespaces[xhr.data.namespace] = true
+      this.currentNamespace = xhr.data.namespace
       return resp
       
     
@@ -73,16 +76,10 @@ define [
     changeLang: (newLang)->
       self = this
       if(newLang isnt this.currentLang)
-        TotalNameSpaces = this.namespaces
-        console.log TotalNameSpaces
-        this.namespaces = []
-        console.log TotalNameSpaces
-        _.each TotalNameSpaces, (value, key)->
-          console.log key
-          console.log value
-          return        
+        this.currentLang = newLang
+        this.putNameSpace this.currentNamespace
+        console.log 'lang changed: ' + this.currentLang                
         
-      console.log 'lang changed: ' + this.currentLang
       return
 
   
