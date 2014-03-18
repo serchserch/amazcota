@@ -1,0 +1,30 @@
+
+
+
+
+@mixin BorderRadius($topleft: 5px, $topright: false, $bottomleft: false, $bottomright: false)
+
+  
+  @if $topright == false
+    $topright: $topleft
+    
+  @if $bottomleft == false
+    $bottomleft: $topright
+    
+  @if $bottomright == false
+    $bottomright: $bottomleft
+
+
+  -moz-border-radius-topleft: $topleft
+  -moz-border-radius-topright: $topright
+  -moz-border-radius-bottomleft: $bottomleft
+  -moz-border-radius-bottomright: $bottomright
+  -webkit-border-top-left-radius: $topleft
+  -webkit-border-top-right-radius: $topright
+  -webkit-border-bottom-left-radius: $bottomleft
+  -webkit-border-bottom-right-radius: $bottomright
+  border-top-left-radius: $topleft
+  border-top-right-radius: $topright
+  border-bottom-left-radius: $bottomleft
+  border-bottom-right-radius: $bottomright
+
