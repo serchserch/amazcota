@@ -36,7 +36,7 @@ define [
           Langs.putNameSpace 'splashmain'
           Langs.putNameSpace 'splashnav'  
 
-          Langs.changeLang 'pt_BR'
+          Langs.changeLang 'en_US'
           
           return
           
