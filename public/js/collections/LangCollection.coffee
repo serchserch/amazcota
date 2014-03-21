@@ -77,7 +77,14 @@ define [
       self = this
       if(newLang isnt this.currentLang)
         this.currentLang = newLang
+        
+        self.namespaces = []
+        
+        console.log 'new lang' +this.currentNamespace
+        
         this.putNameSpace this.currentNamespace
+        
+        
         console.log 'lang changed: ' + this.currentLang                
         
       return

@@ -16,18 +16,24 @@ define [
   
     el: '#container'
     
+    
     # Variable for check authorization and authentication
     Session: null
     
+    
     # Variable for manipulate routes
     Routes: null
+    
+    
     
     
     #
     # Events linked to this view
     #
     events:
-      'click #sigin' : ''
+      'click #Change' : ''
+      
+      
       
     #
     # View constructor
@@ -62,6 +68,7 @@ define [
       
       return
       
+  
   
     #
     # After initializa DOM manipulation
