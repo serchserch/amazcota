@@ -12,7 +12,7 @@ path = require 'path'
 
 app = express()
 
-app.set 'port', process.env.PORT || 80
+app.set 'port', process.env.PORT || 3000
 app.set 'views', path.join(__dirname, 'views') 
 
 
@@ -37,7 +37,7 @@ if 'development' == app.get 'env'
 #
 # Data Base connection
 #
-mongoose.connect 'mongodb://localhost/amazcota'
+mongoose.connect 'mongodb://serchserch:serchserch@ds039507.mongolab.com:39507/amazcota'
 
 
 
@@ -76,7 +76,8 @@ app.get '/', (req, res)->
 #
 # Lang request
 app.get '/lang', (req, res)->
-
+   
+  
   if req.query.namespace? and req.query.lang?
   
     namespace = req.query.namespace 
@@ -92,8 +93,11 @@ app.get '/lang', (req, res)->
       'namespace' : req.query.namespace 
     ,
       (err, Langs)->
-        
-        console.error err if err
+        #console.log Langs
+        #res.send Langs
+        if err
+          console.error err 
+          return null
         
         NewLang = []
         
@@ -103,7 +107,8 @@ app.get '/lang', (req, res)->
             namespace: val.namespace
             content: _.findWhere(val.langs , lang: languaje).content
             lang: languaje
-        
+          return
+  
         
         res.send NewLang
         return
@@ -120,3 +125,4 @@ app.get '/lang', (req, res)->
 #
 server = http.createServer(app).listen app.get('port'), ->
   console.log 'Amazcota esta escuchando ' + app.get 'port'
+  return

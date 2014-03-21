@@ -37,6 +37,7 @@ define [
           Langs.putNameSpace 'splashnav'  
 
           Langs.changeLang 'en_US'
+          console.log 'blblalb'
           
           return
           
