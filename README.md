@@ -1,4 +1,0 @@
-amazcota
-========
-
-macotas

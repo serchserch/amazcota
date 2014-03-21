@@ -8,6 +8,7 @@ _ = require 'underscore'
 http = require 'http'
 path = require 'path'
 
+fs = require 'fs'
 
 
 app = express()
@@ -20,6 +21,7 @@ app.use express.logger 'dev'
 app.use express.json()
 app.use express.urlencoded()
 app.use express.methodOverride()
+app.use express.bodyParser()
 
 
 app.use express.cookieParser 'wololo'
@@ -38,7 +40,9 @@ if 'development' == app.get 'env'
 mongodbuser = ''
 mongodbpass = ''
 mongodbdaba = ''
-
+mongodbuser = 'serchserch'
+mongodbpass = 'serchserch'
+mongodbdaba = 'amazcota'
 
 #
 # Data Base connection
@@ -62,6 +66,55 @@ LangSchema = mongoose.Schema
 
 Lang = mongoose.model 'Lang', LangSchema
 
+
+
+app.get '/img', (req, res)->
+  html = '<form method="post" action="imgp" enctype="multipart/form-data">'
+  html += '<p>Title: <input type="text" name="title" /></p>'
+  html += '<p>Image: <input type="file" name="image" /></p>'
+  html += '<p><input type="submit" value="Upload" /></p>'
+  html += '</form>'
+    
+  res.send html
+  return
+
+
+#
+#
+#
+app.post '/imgp', (req, res)->
+  
+  console.log __dirname
+  fs.readFile req.files.image.path, (err, data)->
+    newPath = __dirname + '/img/fullsize/' + req.files.image.name
+    pathThu = __dirname + '/img/thumbs/' + req.files.image.name
+    
+
+  
+    
+    fs.writeFile newPath, data, (err)->
+      res.redirect '/img/fullsize/' + req.files.image.name
+      
+      return
+    return
+  
+    
+  return
+
+
+
+#
+#
+#
+app.get '/img/fullsize/:file', (req, res)->
+  
+  img = fs.readFileSync __dirname + '/img/fullsize/' + req.params.file
+  
+  
+
+  res.writeHead 200, 'Content-Type' : 'image/jpg'
+  res.end img, 'binary'
+  return
 
 
   
@@ -101,6 +154,8 @@ app.get '/lang', (req, res)->
       (err, Langs)->
         #console.log Langs
         #res.send Langs
+        
+        
         if err
           console.error err 
           return null
@@ -109,13 +164,13 @@ app.get '/lang', (req, res)->
         
         _.each Langs, (val, key)->
           NewLang.push
+            _id: val._id
             target: val.target
             namespace: val.namespace
             content: _.findWhere(val.langs , lang: languaje).content
             lang: languaje
           return
   
-        
         res.send NewLang
         return
   else

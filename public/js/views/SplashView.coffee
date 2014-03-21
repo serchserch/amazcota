@@ -62,7 +62,7 @@ define [
       
       
       # Append Template
-      this.$el.append CompiledTemplate    
+      this.$el.html CompiledTemplate    
       
       
       

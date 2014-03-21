@@ -16,8 +16,8 @@ define [
     currentLang: null
     currentNamespace: null
     
-    
-    namespaces: []
+    defaultNameSpace: 'splashnav'
+    defaultCollection: null
     
     url: ()->
       return '/lang'
@@ -29,65 +29,152 @@ define [
     initialize: (models, options)->
       return
     
-    #
-    #
-    #
-    parse: (resp, xhr)->
-      this.currentLang = xhr.data.lang
-      this.namespaces[xhr.data.namespace] = true
-      this.currentNamespace = xhr.data.namespace
-      return resp
-      
+    
+    
+
+    
     
     #
     #
     #
-    putAllOnTargets: ()->
+    parse: (resp, xhr)->
+      #this.currentNamespace = xhr.data.namespace 
+      resp
+      
+    
+    
+    
+    #
+    #
+    #
+    PutAllOnTargets: ()->
       _.each this.models, (model, key)->
         model.putOnTarget()
       return
       
+    
+    
+    
+    
+      
+    #
+    #
+    #  
+    LoadDefault: (Lang, Callback)->
+
+      self = @      
+    
+      return null if @defaultCollection?           
+
+      @currentLang = Lang
+      
+      @fetch
+        data: lang: Lang, namespace: @defaultNameSpace
+        remove: true
+        success: (Contents)->         
+          self.PutAllOnTargets()
+          self.defaultCollection = Contents.toJSON()
+          if Callback? 
+            Callback?()
+          return
+          
+      return
+    
+      
+    #
+    #
+    #  
+    LoadNameSpace: (NameSpace, Callback)->
+      self = @   
+      #if !@defaultCollection?
+      #  @LoadDefault  
+      
+      @currentNamespace = NameSpace
+    
+      @fetch
+        data: lang: @currentLang, namespace: NameSpace
+        remove: true
+        success: (Contents)->
+          console.log 'defaults'
+          console.log self.defaultCollection
+          self.add(self.defaultCollection, {silent : true})      
+          self.PutAllOnTargets()
+          console.log self
+          if Callback? 
+            Callback?()
+          return
+          
+      return
+    
+    
+    #
+    #
+    #
+    ChangeLang: (Lang, Callback)->
+      @defaultCollection = null
+      @LoadDefault Lang
+      @LoadNameSpace @currentNamespace
+      return
+    
       
     #
     #
     #
     putNameSpace: (namespace)->
+      
+      #@putDefaults()
+      
+    
       self = this
-      
-      #self.namespaces[namespace] = true
-      
-      if typeof self.namespaces[namespace] is 'undefined' and self.namespaces[namespace] isnt true
-      
-        self.namespaces[namespace] = true
-        
-        this.fetch
+   
+      _fetch = ()->
+        self.fetch
           data: lang: self.currentLang, namespace: namespace
-          remove: false
+          remove: true
           success: ()->
-            self.putAllOnTargets()
+            self.PutAllOnTargets()
             console.log self
             return
+        return
+    
+    
+      if self.currentNamespace isnt namespace
+        self.currentNamespace = namespace
+        _fetch()    
 
       return
+    
+    
+    
+    
     
     #
     #
     #  
     changeLang: (newLang)->
-      self = this
+      self = @
       if(newLang isnt this.currentLang)
-        this.currentLang = newLang
         
-        self.namespaces = []
+        @currentLang = newLang      
+
+        _fetch = (lang, namespace, init)->
+          self.fetch
+            data: lang: lang, namespace: namespace
+            remove: init
+            success: ()->
+              self.putAllOnTargets()
+              console.log self
+              return
+          return
         
-        console.log 'new lang' +this.currentNamespace
+
+        _fetch newLang, @currentNamespace , false
         
-        this.putNameSpace this.currentNamespace
-        
-        
-        console.log 'lang changed: ' + this.currentLang                
+        _.each this.defaultsNameSpaces, (value, key)->
+          _fetch newLang, value, true
+          return             
         
       return
 
-  
-  return Collection
+  #return collection
+  Collection

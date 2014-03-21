@@ -15,31 +15,24 @@ define [
     
     Langs = new LangCollection
 
-
+    Languajes = ['en_US', 'es_MX', 'pt_BR']
+    Random = 0
+                    
+    
 
 
     # Auth
     SessionModel.IsLogin ()->
       
-      # Lang      
-      Langs.fetch
-        data: lang: 'es_MX', namespace: 'splashnav' 
-        success: ()->
-          Router.initialize SessionModel, Langs
-          
-
-          
-          $('#Change').on 'click', (e)->
-            e.preventDefault()
-            Languajes = ['en_US', 'es_MX']          
-            Random = (Math.floor Math.random() * 2) 
+      
+      Langs.LoadDefault Languajes[Random], ()->
+        Router.initialize SessionModel, Langs
+        $('#Change').on 'click', (e)->
+          e.preventDefault()
+          Random++             
+          Random = 0 if Random > 2
+          Langs.ChangeLang Languajes[Random]
             
-            #console.log Languajes[Random]
-            Langs.changeLang Languajes[Random]
-            return
-            
-          return
-                
       return
       
     
