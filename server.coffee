@@ -33,11 +33,17 @@ if 'development' == app.get 'env'
   app.use express.errorHandler()
 
 
+#
+# Secure
+mongodbuser = ''
+mongodbpass = ''
+mongodbdaba = ''
+
 
 #
 # Data Base connection
 #
-mongoose.connect 'mongodb://serchserch:serchserch@ds039507.mongolab.com:39507/amazcota'
+mongoose.connect 'mongodb://'+mongodbuser+':'+mongodbpass+'@ds039507.mongolab.com:39507/'+mongodbdaba
 
 
 
