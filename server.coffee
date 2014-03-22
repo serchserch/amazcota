@@ -9,7 +9,7 @@ http = require 'http'
 path = require 'path'
 
 fs = require 'fs'
-
+cloudinary = require 'cloudinary'
 
 app = express()
 
@@ -33,6 +33,14 @@ app.use express.static path.join(__dirname, 'public')
 
 if 'development' == app.get 'env'
   app.use express.errorHandler()
+
+
+
+cloudinary.config
+  cloud_name: 'amazcota'
+  api_key: '146194368698915'
+  api_secret: 'LW82HMYXjzPARF5yoSOeTirb5z8'
+
 
 
 #
@@ -85,18 +93,22 @@ app.get '/img', (req, res)->
 app.post '/imgp', (req, res)->
   
   console.log __dirname
+  
+  cloudinary.uploader.upload 'http://newknd.com/photos/RachelBilson1568294334.jpg', (result)->
+    console.log result
+    return
+  
+  
+  ### 
   fs.readFile req.files.image.path, (err, data)->
     newPath = __dirname + '/img/fullsize/' + req.files.image.name
-    pathThu = __dirname + '/img/thumbs/' + req.files.image.name
-    
-
-  
-    
+    pathThu = __dirname + '/img/thumbs/' + req.files.image.name    
     fs.writeFile newPath, data, (err)->
       res.redirect '/img/fullsize/' + req.files.image.name
       
       return
     return
+  ###
   
     
   return
