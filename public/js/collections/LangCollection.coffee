@@ -95,11 +95,11 @@ define [
         data: lang: @currentLang, namespace: NameSpace
         remove: true
         success: (Contents)->
-          console.log 'defaults'
-          console.log self.defaultCollection
+          #console.log 'defaults'
+          #console.log self.defaultCollection
           self.add(self.defaultCollection, {silent : true})      
           self.PutAllOnTargets()
-          console.log self
+          #console.log self
           if Callback? 
             Callback?()
           return

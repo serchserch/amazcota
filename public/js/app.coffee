@@ -16,9 +16,9 @@ define [
     Langs = new LangCollection
 
     Languajes = ['en_US', 'es_MX', 'pt_BR']
-    Random = 0
+    Random = Math.floor Math.random() * 3
                     
-    
+    console.log Random
 
 
     # Auth

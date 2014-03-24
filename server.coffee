@@ -76,6 +76,8 @@ Lang = mongoose.model 'Lang', LangSchema
 
 
 
+
+
 app.get '/img', (req, res)->
   html = '<form method="post" action="imgp" enctype="multipart/form-data">'
   html += '<p>Title: <input type="text" name="title" /></p>'
@@ -188,6 +190,126 @@ app.get '/lang', (req, res)->
   else
     res.send error: 'error'
   
+  return
+  
+
+
+
+
+
+
+
+
+
+
+
+PetSchema = mongoose.Schema
+  name: String
+  birthday: Date
+  specie: String
+  breed: String
+  size: String
+  colors: [
+    _id: false
+    color: String
+    percent: Number
+  ]  
+  details: String
+  
+  profilephoto: String
+  photos:[
+    _id: false
+    photourl: String
+  ]
+  
+  # History of status adoption, lost, found 
+  status:[
+    _id: false
+    _statusid: String 
+  ]
+  
+  # Medical status 
+  medical:
+    vaccines:[
+      _id: false
+      vaccine: String
+      dategiven: Date
+      nextdosedate: Date
+      details: String
+    ]
+    sterilized: Boolean
+    dewormed: Boolean 
+  # History of owners
+  bestfriends: [
+    _id: false
+    _idhuman: String
+  ]
+  # Current owner
+  currentbestfriend: String
+
+
+Pet = mongoose.model 'Pet', PetSchema
+
+
+app.get '/pet', (req, res)->  
+  Pet.find (err, Pets)->
+    res.send Pets
+  return
+
+
+
+app.get '/test_insertdot' , (req, res)->
+  console.log 'hey wua'
+  Chocolate = new Pet
+      name: 'Chocolate-' + ( Math.floor (Math.random()*1000)+1 )
+      birthday: new Date().toISOString()
+      specie: 'Dog'
+      breed: 'mestizo'
+      size: 'big'
+      colors: [
+        color: 'brown'
+        percent: 90
+      ,
+        color: 'white'
+        percent: 10
+      ]  
+      details: '?Deatils::' + ( Math.random() * 10000 )
+      
+      profilephoto: 'http://lorempixel.com/400/200/'
+      photos:[
+        photourl: 'http://lorempixel.com/400/200/'
+      ]
+      
+      # History of status adoption, lost, found 
+      status:[
+        _statusid: '54d512165411as2asd145' 
+      ]
+      
+      # Medical status 
+      medical:
+        vaccines:[
+          vaccine: 'Rabia'
+          dategiven: new Date().toISOString()
+          nextdosedate: new Date().toISOString()
+          details: 'Si puesta'
+        ]
+        sterilized: true
+        dewormed: false 
+      # History of owners
+      bestfriends: [
+        _idhuman: '987d918374s12l'
+      ]
+      # Current owner
+      currentbestfriend: '98132k29s7o92347'
+  
+  
+  Chocolate.save (err)->
+    #console.log 'oops'+ err if err
+    
+    res.send Chocolate
+    
+    return
+    
   return
   
 

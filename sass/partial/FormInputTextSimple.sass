@@ -1,0 +1,11 @@
+
+
+
+@mixin FormInputTextSimple($round: .1rem)
+  @include BorderRadius($round)
+  @include transition(opacity ease .45s 0s)
+  opacity: .75
+  outline: 0
+  &:focus
+    outline: 0
+    opacity: 1

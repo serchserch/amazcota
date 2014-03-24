@@ -1,0 +1,101 @@
+#over
+  >header
+  
+    //@include size(100% auto)
+    @include size(95vw auto)
+    @include position(absolute, 0 0 0 1vw)
+    //max-height: 20vh
+    min-height: 8vh
+    padding: 0 1.5vw
+    margin: 0 auto
+    background: rgba(0,0,0,.025)
+    border-bottom: 1px solid rgba(0,0,0,.05) 
+    
+    nav
+    
+      @include size(100% 4vh)
+      @include position(relative, 2vh 0 0 0)
+
+      @include FlexBox()
+      
+      // $liitems: 5
+      // $liwidth: 100vw / ($liitems + 1)
+      // $limargin: $liwidth / ($liitems * 2)
+       
+      ul
+        //@include size(100%)
+        @include size(100%)
+        list-style-type: none
+        margin: 0 auto
+        padding: 0
+        display: block
+        
+        @include FlexBox(center, space-between)
+        
+
+                
+        li
+          //@include size($liwidth 100%)
+          //margin: 0 $limargin
+          text-align: center
+          a
+            span
+              color: #FFF
+              text-shadow: 1px 1px 1px rgba(0,0,0,.35)
+          &:hover
+            cursor: pointer
+        
+        // li menu
+        li:nth-child(1)
+          text-align: left
+          a
+            i
+              @include IconCircleIntoCircle()
+              float: left
+              margin: -.25rem .25rem 0 0
+
+        // li explore
+        //li:nth-child(2)
+
+
+        // li amazcota
+        //li:nth-child(3)
+          
+        // li Login
+        //li:nth-child(4)
+                    
+                    
+        // li Search
+        li:nth-child(5)
+          @include position(relative)
+          text-align: right
+          a
+            i
+              $border: .1rem
+              $size: 1.7rem
+              $realsize: $size + ($border * 4)
+              $round: $realsize / 2
+              @include size($size)
+              @include BorderRadius($round)
+              @include position(relative)
+              border: $border solid #FFF
+              background: transparent
+              display: block
+              &:after           
+                @include size(.5rem .2rem)
+                @include BorderRadius(.1rem)
+                @include position(absolute, 0 0 0 0 )
+                @include transform(rotate(45deg))
+                content: ''
+                background: #FFF
+                display: block  
+                margin: 1.5rem 0 0 1.4rem              
+
+            span
+              display: none  
+
+
+    @media screen and (min-height: 800px)
+      min-height: 7vh   
+      
+          

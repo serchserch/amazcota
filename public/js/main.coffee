@@ -9,6 +9,7 @@ require.config
     text: 'libs/require-text/text.min'
     # Librerías extras 
     facebook: '//connect.facebook.net/en_US/all'
+    filtrr2: 'libs/filtrr2/filtrr2-0.6.3.min'
     #facebook: 'libs/facebook/facebook'
   
   shim:
@@ -25,6 +26,12 @@ require.config
     
     facebook:
       exports: 'FB'
+      
+    filtrr2:
+      deps:[
+        'jquery'
+      ]
+      exports: 'Filtrr2'
         
 
 

@@ -2,14 +2,15 @@
 
 # Import necessary libraries
 define [
-  'jquery',
-  'underscore',
-  'backbone',
+  'jquery'
+  'underscore'
+  'backbone'
   'text!templates/SplashTemplate.html'
+  'text!../../img/logo.svg'
 ],
 
 
-($, _, Backbone, SplashTemplate)->
+($, _, Backbone, SplashTemplate, SVGLogo)->
   
   
   View = Backbone.View.extend
@@ -41,6 +42,9 @@ define [
     initialize: (Routes, Session)->
       
       # do something
+      @$el.removeAttr 'class'
+      @$el.addClass 'SplashTemplate'
+      
       
       # Data for menu
       
@@ -62,8 +66,7 @@ define [
       
       
       # Append Template
-      this.$el.html CompiledTemplate    
-      
+      @$el.html CompiledTemplate
       
       
       return
@@ -75,7 +78,7 @@ define [
     # common
     #
     render: ()->
-      # do something
+      $('#logo').html _.template SVGLogo
       return
   
   

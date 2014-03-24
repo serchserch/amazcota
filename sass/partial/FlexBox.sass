@@ -1,0 +1,49 @@
+
+// No testing in Safari
+
+
+// $align: [felx-start, flex-end, center, baseline, stretch]
+//    -> Manejar vertical
+
+
+// $justify: [felx-start, flex-end, center, space-between, space-around]
+//    -> Manejar horizontal
+
+// $flow: [row, row-reverse, column, column-reverse]
+//        [wrap, nowrap, wrap-reverse]
+//    -> Envoltura
+
+//
+//
+// ITEMS
+//
+// order: 0
+// flex: 0 0 auto
+// align-self: auto
+
+
+@mixin FlexBox($align: center, $justify: center, $flow: row nowrap)
+  
+  //display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+  
+  
+  -webkit-box-align: $align
+  -moz-box-align: $align
+  
+  -ms-flex-align: $align
+  
+  -webkit-align-items: $align
+  align-items: $align
+ 
+  @if $justify
+    -webkit-justify-content: $justify
+    justify-content: $justify
+  
+  -webkit-flex-flow: $flow
+  -moz-flex-flow: $flow
+  -ms-flex-flow: $flow
+  flex-flow: $flow
