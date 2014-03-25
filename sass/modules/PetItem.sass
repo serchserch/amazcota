@@ -1,0 +1,27 @@
+.PetItem
+  $containersize: 255px
+  @include size($containersize $containersize)
+  text-align: center
+  display: block
+  
+  img
+    $size: $containersize - 65
+    $round: $size/2
+    @include size($size $size)
+    @include BorderRadius($round)
+    margin: 0 auto
+    
+  em
+    @extend: .font-bold
+    font-size: 1.15rem
+    font-style: normal
+    display: block
+    text-transform: uppercase
+    
+  span
+    @extend: .font-regular
+    font-size: .8rem
+    color: rgba(0,0,0,.5)
+    display: block
+    text-transform: uppercase
+  

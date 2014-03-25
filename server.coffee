@@ -21,7 +21,6 @@ app.use express.logger 'dev'
 app.use express.json()
 app.use express.urlencoded()
 app.use express.methodOverride()
-app.use express.bodyParser()
 
 
 app.use express.cookieParser 'wololo'
@@ -35,22 +34,10 @@ if 'development' == app.get 'env'
   app.use express.errorHandler()
 
 
-
-cloudinary.config
-  cloud_name: 'amazcota'
-  api_key: '146194368698915'
-  api_secret: 'LW82HMYXjzPARF5yoSOeTirb5z8'
-
-
-
 #
 # Secure
-mongodbuser = ''
-mongodbpass = ''
-mongodbdaba = ''
-mongodbuser = 'serchserch'
-mongodbpass = 'serchserch'
-mongodbdaba = 'amazcota'
+#
+
 
 #
 # Data Base connection
@@ -239,6 +226,7 @@ PetSchema = mongoose.Schema
     ]
     sterilized: Boolean
     dewormed: Boolean 
+    
   # History of owners
   bestfriends: [
     _id: false
@@ -251,10 +239,31 @@ PetSchema = mongoose.Schema
 Pet = mongoose.model 'Pet', PetSchema
 
 
-app.get '/pet', (req, res)->  
-  Pet.find (err, Pets)->
-    res.send Pets
+#
+# Get a pet by id
+#
+app.get '/pet/:id', (req, res)->   
+  Pet.findOne '_id': req.params.id , (err, Pet)->
+    return res.send err: 'fail' if err
+    res.send Pet    
   return
+
+
+
+#
+# Get popular pets
+#
+app.get '/pets', (req, res)->
+  
+  unless req.query.popular 
+    return res.send err: 'fail'
+    
+  Pet.find (err,Pets)->
+    res.send Pets
+    return
+  return
+
+
 
 
 

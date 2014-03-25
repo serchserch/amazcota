@@ -5,12 +5,15 @@ define [
   'jquery'
   'underscore'
   'backbone'
+  'models/PetModel'
+  'collections/PetCollection'
   'text!templates/SplashTemplate.html'
   'text!../../img/logo.svg'
+  'text!templates/PetItemTemplate.html'
 ],
 
 
-($, _, Backbone, SplashTemplate, SVGLogo)->
+($, _, Backbone, PetModel, PetCollection, SplashTemplate, SVGLogo, PetItemTemplate)->
   
   
   View = Backbone.View.extend
@@ -41,6 +44,8 @@ define [
     #
     initialize: (Routes, Session)->
       
+      self = @
+      
       # do something
       @$el.removeAttr 'class'
       @$el.addClass 'SplashTemplate'
@@ -68,6 +73,22 @@ define [
       # Append Template
       @$el.html CompiledTemplate
       
+      PopularPets = new PetCollection [], requrl: 'popular'
+      
+      # Pet = new PetModel id: '532fb5d304348cf01b3778b9'
+      # Pet.fetch success: (Data)->
+        # PopularPets.add Data
+        
+      PopularPets.fetch success: (ResultPets)->
+        $target = self.$el.find('section:nth-child(2)').find('section')
+        _.each ResultPets.models, (Pet, key)->    
+          console.log Pet.toJSON()
+          $target.append _.template PetItemTemplate, Pet.toJSON()
+          
+        return
+      
+
+        
       
       return
       

@@ -9,13 +9,16 @@ define [
   
   Model = Backbone.Model.extend
   
-    urlRoot: 'pet'  
+    urlRoot: '/pet'  
+    
     
     #
     #
     #
     initialize: ()->
       return
+    
+    
     
     
  
