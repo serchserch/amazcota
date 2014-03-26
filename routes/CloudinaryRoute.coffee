@@ -1,9 +1,10 @@
+auth = require '../auth'
 cloudinary = require 'cloudinary'
 
 cloudinary.config
-  cloud_name: 'amazcota'
-  api_key: '146194368698915'
-  api_secret: 'LW82HMYXjzPARF5yoSOeTirb5z8'
+  cloud_name: auth.cloudinary.cloud_name
+  api_key: auth.cloudinary.api_key
+  api_secret: auth.cloudinary.api_secret
 
 
 exports.upload = (req, res)->
