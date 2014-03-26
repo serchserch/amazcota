@@ -68,14 +68,15 @@ mongoose.connect 'mongodb://'+mongodbuser+':'+mongodbpass+'@ds039507.mongolab.co
 
 
 
-###################
-###    VIEWS    ###
-###################
+#############################
+###    VIEWS /// ROUTES   ###
+#############################
 
   
 #  
 # Main  
-app.get '/', SplashRoute.index
+#app.get '/', SplashRoute.index
+app.get '/', SplashRoute.test
 
 
 
