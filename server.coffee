@@ -6,7 +6,7 @@ mongoose = require 'mongoose'
 http = require 'http'
 path = require 'path'
 
-
+auth = require './auth'
 
 
 # 
@@ -51,9 +51,9 @@ if 'development' == app.get 'env'
 #
 # Secure
 #
-mongodbuser = 'serchserch'
-mongodbpass = 'serchserch'
-mongodbdaba = 'amazcota'
+mongodbuser = auth.mongodb.mongodbuser
+mongodbpass = auth.mongodb.mongodbpass
+mongodbdaba = auth.mongodb.mongodbdaba
 
 
 
