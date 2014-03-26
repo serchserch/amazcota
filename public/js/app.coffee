@@ -17,6 +17,7 @@ define [
 
     Languajes = ['en_US', 'es_MX', 'pt_BR']
     Random = Math.floor Math.random() * 3
+    Random = 2
                     
     console.log Random
 

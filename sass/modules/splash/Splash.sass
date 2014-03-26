@@ -18,14 +18,14 @@
     //@include size(100%)
     @include size(98vw 97vh)
     margin: 1.5vh auto
-    background: url('../img/bg.jpg')
+    // background: url('../img/bg.jpg')
     // background: url('http://cdn.twitrcovers.com/wp-content/uploads/2012/11/Gaussian-Blur-l.jpg')
     //background: url('http://upload.wikimedia.org/wikipedia/commons/9/95/Working_dog_edit.jpg')
-    background-size: 100%
-    background-repeat: no-repeat
-    background-position: center top
+    // background-size: 100% 100%
+    // background-repeat: no-repeat
+    // background-position: center top
     
-    // @include SwitchBackgroundColor(1)
+    @include SwitchBackgroundColor(1)
     
     overflow: hidden
     display: -webkit-box
@@ -43,8 +43,12 @@
     box-pack: center
     box-align: center
     
-
+    @media screen and (orientation:portrait) 
+      background-size: auto 100%
     
+    @media screen and (orientation:landscape) 
+      background-size: 100% auto
+        
     // Logo
     >div:nth-child(1)
       @include size(14vw 14vw)
@@ -119,5 +123,5 @@
       padding: .3rem 0 
     >section
       @include size(100%)
-      @include FlexBox(false, space-around, row wrap)
+      @include FlexBox(false, center, row wrap)
   
