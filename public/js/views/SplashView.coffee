@@ -28,7 +28,7 @@ define [
     # Variable for manipulate routes
     Routes: null
     
-    
+    Flag: false
     
     
     #
@@ -43,7 +43,7 @@ define [
     # View constructor
     #
     initialize: (Routes, Session)->
-      
+
       self = @
       
       # do something
@@ -89,7 +89,7 @@ define [
       
 
         
-      
+      #@canvas()
       return
       
   
@@ -102,7 +102,39 @@ define [
       $('#logo').html _.template SVGLogo
       return
   
-  
+    canvas: ()->
+      $video = $('#video')[0]
+      ctx = $video.getContext '2d'
+      $img = $('<img/>', 
+        attr:
+           id: 'ss'
+        style: 'display: none'
+        src: 'http://root:chinitossucks@172.19.0.202/axis-cgi/jpg/image.cgi?resolution=160x120&compression=50'
+      )
+      #http://root:1234@190.183.222.194:8101/mjpg/video.mjpg?resolution=160x120&compression=50
+      #http://root:chinitossucks@172.19.0.202/axis-cgi/mjpg/video.cgi
+      #http://root:toor@187.237.42.201:20001
+      #http://172.19.0.202/mjpg/video.mjpg
+      #http://root:chinitossucks@172.19.0.202/mjpg/video.mjpg
+      #http://root:chinitossucks@172.19.0.202/axis-cgi/jpg/image.cgi
+      
+
+      
+      if !@Flag
+        $img.load ()-> 
+          @Flag = true
+          cache = $(this)
+          $img.remove()
+          $img2 = cache          
+          setInterval ()-> 
+            $img2.attr 'src' , 'http://root:chinitossucks@172.19.0.202/axis-cgi/jpg/image.cgi?resolution=160x120&compression=50'
+            ctx.drawImage($img2[0],10,10);           
+          , 1000
+          #ctx.drawImage($img2[0],10,10);  
+      
+      $img.appendTo('body')
+            
+      return
   # Return this view varibale
   View
     

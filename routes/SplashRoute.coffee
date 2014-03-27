@@ -12,5 +12,5 @@ exports.index = (req, res)->
 #
 #
 exports.test = (req, res)->
-  res.send '<canvas></canvas>'
+  res.sendfile 'views/index.html'
   return
