@@ -11,25 +11,29 @@ was written in some 'transcompiler' languaje.
   * Sass
   * Jade
   
+
+[![Screenshot](_src/GUI_PETPROFILE.jpg)](http://www.html5rocks.com)
+
+
 Note: This code representative purpose only, does not reflect the actual production application
+
 
 ## Tech
 
+
 Server Side
 
-  *'Server' : node.js
-  *Framework : Express
-  *'DataBase' : mongodb
-  *'ORM': mongoose
+  * 'Server' : node.js
+  * Framework : Express
+  * DataBase : mongodb
+  * 'ORM': mongoose
+
 
 Client Side
   
-  *Framework: Backbone.js
-  *Libs: [
-    require.js
-    underscore.js
-    jQuery.js
-  ]
+  * Framework: Backbone.js
+  * Libs: [ require.js, underscore.js, jQuery.js ]
+
   
 Other
   * Heroku PAAS
