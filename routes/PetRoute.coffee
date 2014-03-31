@@ -19,13 +19,33 @@ exports.getbyId = (req, res)->
 #
 #
 exports.getPopulars = (req, res)->
-  unless req.query.popular 
-    return res.send err: 'get populars fail'
+  
+  #unless req.query.popular 
     
-  PetModel.find (err,Pets)->
+  if req.query.popular  
+    Populars req, res
+    return
+  
+  if req.query.lost
+    Lost req, res
+    return
+    
+  return res.send err: 'get pets fail' 
+
+
+Populars = (req, res)->
+  PetModel.find().limit(8).exec (err,Pets)->
     res.send Pets
     return
-  return  
+
+
+Lost = (req, res)->
+  PetModel.find().limit(5).exec (err,Pets)->
+    res.send Pets
+    return
+
+
+
 
 
 #

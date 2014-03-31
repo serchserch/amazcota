@@ -1,15 +1,28 @@
+$color: 'white'
+$fontcolor: #FFF
+$textshadow: 1px 1px 1px rgba(0,0,0,.35)
+
+@if $color == 'white'
+  $fontcolor: #FFF
+  $textshadow: 1px 1px 1px rgba(0,0,0,.35)
+@if $color == 'black'
+  $fontcolor: #000
+  $textshadow: 1px 1px 1px rgba(255,255,255,.35)
+
+
 #over
   >header
   
     //@include size(100% auto)
-    @include size(95vw auto)
-    @include position(absolute, 0 0 0 .5vw)
+    $pad: 3vw
+    @include size($gw - $pad 5rem)
+    @include position(absolute, (100vh - $gh)/2 0 0 (100vw-$gw)/2 )
     //max-height: 20vh
     min-height: 8vh
-    padding: 0 1.5vw
-    margin: 0 auto
-    background: rgba(0,0,0,.025)
-    border-bottom: 1px solid rgba(0,0,0,.05) 
+    padding: 0 $pad/2
+    margin: 0
+    //background: rgba(0,0,0,.025)
+    //border-bottom: 1px solid rgba(0,0,0,.05) 
     
     nav
     
@@ -39,8 +52,13 @@
           text-align: center
           a
             span
-              color: #FFF
-              text-shadow: 1px 1px 1px rgba(0,0,0,.35)
+              font-size: 1.2rem
+              @if $color == 'white'
+                color: $fontcolor
+                text-shadow: $textshadow
+              @if $color == 'black'
+                color: $fontcolor
+                text-shadow: $textshadow
           &:hover
             cursor: pointer
         
@@ -49,7 +67,9 @@
           text-align: left
           a
             i
-              @include IconCircleIntoCircle()
+              @include size(2rem)
+              //@include IconCircleIntoCircles()
+
               float: left
               margin: -.25rem .25rem 0 0
 
@@ -58,7 +78,8 @@
 
 
         // li amazcota
-        //li:nth-child(3)
+        li:nth-child(3)
+          visibility: hidden
           
         // li Login
         //li:nth-child(4)
@@ -77,7 +98,7 @@
               @include size($size)
               @include BorderRadius($round)
               @include position(relative)
-              border: $border solid #FFF
+              border: $border solid $fontcolor
               background: transparent
               display: block
               &:after           
@@ -86,7 +107,7 @@
                 @include position(absolute, 0 0 0 0 )
                 @include transform(rotate(45deg))
                 content: ''
-                background: #FFF
+                background: $fontcolor
                 display: block  
                 margin: 1.5rem 0 0 1.4rem              
 

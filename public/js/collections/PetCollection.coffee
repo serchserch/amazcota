@@ -33,6 +33,8 @@ define [
       switch requrl
         when 'popular'
         then return '/pets?popular=true'
+        when 'lost'
+        then return '/pets?lost=true'
       return
       
   # Return

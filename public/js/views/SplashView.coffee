@@ -75,6 +75,8 @@ define [
       
       PopularPets = new PetCollection [], requrl: 'popular'
       
+      
+      
       # Pet = new PetModel id: '532fb5d304348cf01b3778b9'
       # Pet.fetch success: (Data)->
         # PopularPets.add Data
@@ -82,11 +84,18 @@ define [
       PopularPets.fetch success: (ResultPets)->
         $target = self.$el.find('section:nth-child(2)').find('section')
         _.each ResultPets.models, (Pet, key)->    
-          console.log Pet.toJSON()
+          #console.log Pet.toJSON()
           $target.append _.template PetItemTemplate, Pet.toJSON()
-          
         return
       
+      
+      LostPets = new PetCollection [], requrl: 'lost'
+      LostPets.fetch success: (ResultPets)->
+        $target = self.$el.find('section:nth-child(3)').find('section')
+        _.each ResultPets.models, (Pet, key)->    
+          #console.log Pet.toJSON()
+          $target.append _.template PetItemTemplate, Pet.toJSON()
+        return
 
         
       #@canvas()
@@ -100,6 +109,7 @@ define [
     #
     render: ()->
       $('#logo').html _.template SVGLogo
+      $('#logo').find('svg').width('100%').height('100%').find('path').attr('fill', '#FFF')
       return
   
     canvas: ()->

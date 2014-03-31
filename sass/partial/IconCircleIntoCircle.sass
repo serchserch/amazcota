@@ -1,7 +1,36 @@
 
 
+@mixin IconCircleIntoCircles($color: #000, $size: 1.5rem, $border: .1rem)
+  
+  $height: $size / 5
+  
+  @include size($size $height)
+  @include position(relative)
+  //border: $border solid $color
+  
+  background: $color
+  
+  
+  &:before
+    @include size($size $height)
+    @include position(absolute, $height*2 0 0 0 )
+    content: ""
+    background: $color
+  
+  &:after
+    @include size($size $height)
+    @include position(absolute, $height*4 0 0 0 )
+    content: ""
+    background: $color
+  
+  
+  
 
-@mixin IconCircleIntoCircle($size: 1.8rem, $border: .1rem, $percent: .6)
+
+
+
+
+@mixin IconCircleIntoCircle($color: #FFF, $size: 1.8rem, $border: .1rem, $percent: .7)
   
   $realsize: $size + ($border * 4)
   $round: $realsize / 2
@@ -9,21 +38,26 @@
   @include size($size)
   @include BorderRadius($round)
   @include position(relative)
-  border: $border solid #FFF
+  border: $border solid $color
   background: transparent
   display: block
+  
   &:after
-    $containersize: $size
-    $border: .1rem
-    $size: $realsize * $percent
-    $realsize: $size + ($border * 4)
-    $round: $realsize/2
-    $top: (($containersize - $size) / 2) - $border
-    $left:  $top + ($border / 2 )            
-    @include size($size)
-    @include BorderRadius($round)
+    
+    $innersize: $size * $percent
+    $innerrealsize:  $innersize + ($border * 4)
+    $innerround: $innerrealsize / 2
+    
+    
+    
+    $top: ($realsize - $innerrealsize)/2
+    //$top: ((1 - $percent)/2) * $size
+    $left: ($realsize - $innerrealsize)/2
+              
+    @include size($innersize)
+    @include BorderRadius($innerround)
     @include position(absolute, $top 0 0 $left )
     content: ''
-    border: $border solid #FFF
+    border: $border solid $color
     background: transparent
     display: block
