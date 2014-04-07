@@ -3,15 +3,16 @@ require.config
   paths:
     # Librerias basicas para el funcionamiento del sistema 
     # core
-    jquery: 'libs/jquery/jquery.min'
-    underscore: 'libs/underscore.js/underscore-min'
-    backbone: 'libs/backbone.js/backbone-min'
-    text: 'libs/require-text/text.min'
+    jquery: 'libs/jquery.min'
+    underscore: 'libs/underscore-min'
+    backbone: 'libs/backbone-min'
+    text: 'libs/require-text'
+    handlebars: 'libs/handlebars.min'
     # Librerías extras 
     facebook: '//connect.facebook.net/en_US/all'
-    filtrr2: 'libs/filtrr2/filtrr2-0.6.3.min'
+    #filtrr2: 'libs/filtrr2/filtrr2-0.6.3.min'
     #facebook: 'libs/facebook/facebook'
-  
+    templates: '../templates'
   shim:
     
     backbone:
@@ -32,6 +33,9 @@ require.config
         'jquery'
       ]
       exports: 'Filtrr2'
+    
+    handlebars:
+      exports: 'Handlebars'
         
 
 
