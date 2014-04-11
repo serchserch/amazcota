@@ -5,15 +5,16 @@ define [
   'jquery'
   'underscore'
   'backbone'
+  'handlebars'
   'models/PetModel'
   'collections/PetCollection'
-  'text!templates/SplashTemplate.html'
+  'text!templates/SplashTemplate.hbs'
   'text!../../img/logo.svg'
-  'text!templates/PetItemTemplate.html'
+  'text!templates/PetItemTemplate.hbs'
 ],
 
 
-($, _, Backbone, PetModel, PetCollection, SplashTemplate, SVGLogo, PetItemTemplate)->
+($, _, Backbone, Handlebars, PetModel, PetCollection, SplashTemplate, SVGLogo, PetItemTemplate)->
   
   
   View = Backbone.View.extend
@@ -67,7 +68,11 @@ define [
         menu: MenuData
         
       # Compile template  
-      CompiledTemplate = _.template SplashTemplate, Data
+      # CompiledTemplate = _.template SplashTemplate, Data
+      #console.log(Handlebars)
+      CompiledTemplate = Handlebars.compile(SplashTemplate);
+      CompiledTemplate = CompiledTemplate(Data)
+      #SplashTemplate(Data)
       
       
       # Append Template
@@ -81,11 +86,13 @@ define [
       # Pet.fetch success: (Data)->
         # PopularPets.add Data
         
+      #PetHandleBars = 
+          
       PopularPets.fetch success: (ResultPets)->
         $target = self.$el.find('section:nth-child(2)').find('section')
         _.each ResultPets.models, (Pet, key)->    
-          #console.log Pet.toJSON()
-          $target.append _.template PetItemTemplate, Pet.toJSON()
+          console.log Pet.toJSON()
+          $target.append Handlebars.compile(PetItemTemplate)(Pet.toJSON())
         return
       
       
@@ -94,7 +101,7 @@ define [
         $target = self.$el.find('section:nth-child(3)').find('section')
         _.each ResultPets.models, (Pet, key)->    
           #console.log Pet.toJSON()
-          $target.append _.template PetItemTemplate, Pet.toJSON()
+          $target.append Handlebars.compile PetItemTemplate, Pet.toJSON()
         return
 
         

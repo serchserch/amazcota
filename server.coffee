@@ -22,6 +22,9 @@ TestRoute = require './routes/TestRoute'
 
 app = express()
 
+console.log('asdfasd')
+
+
 #
 # Config app
 app.set 'port', process.env.PORT || 3000
@@ -32,8 +35,8 @@ app.use express.json()
 app.use express.urlencoded()
 app.use express.methodOverride()
 
-app.use express.cookieParser 'wololo'
-app.use express.session secret: 'wololo'
+app.use express.cookieParser auth.secrets.cookie
+app.use express.session secret: auth.secrets.session
 
 app.use app.router
 app.use express.static path.join(__dirname, 'public')

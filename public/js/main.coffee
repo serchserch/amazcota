@@ -10,7 +10,7 @@ require.config
     handlebars: 'libs/handlebars.min'
     # Librerías extras 
     facebook: '//connect.facebook.net/en_US/all'
-    #filtrr2: 'libs/filtrr2/filtrr2-0.6.3.min'
+    filtrr2: 'libs/filtrr2-0.6.3.min'
     #facebook: 'libs/facebook/facebook'
     templates: '../templates'
   shim:
